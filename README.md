@@ -1,148 +1,30 @@
-# Tic-Tac-Toe
+# Tic-Tac-Toe with a rule-based opponent
 
-Welcome to the **tic-tac-toe** repository, a Python implementation of the classic Tic-Tac-Toe game with an expert system to challenge human players.
+A Python/Pygame course project developed for the Data Structures course taught by Professor Gilberto Farias. A human plays X against a computer playing O in a graphical 3×3 board. The computer uses programmed heuristics rather than a trained machine learning model.
 
----
+## Run locally
 
-## Table of Contents
+Create and activate a Python 3 virtual environment, then run from the repository root:
 
-* [Overview](#overview)
-* [Features](#features)
-* [Requirements](#requirements)
-* [Installation](#installation)
-* [How to Play](#how-to-play)
-* [Game Rules](#game-rules)
-* [Computer Strategy (Expert System)](#computer-strategy-expert-system)
-* [Project Structure](#project-structure)
-* [Contributing](#contributing)
-* [License](#license)
-
----
-
-## Overview
-
-*This project was developed as an assignment for the Data Structures course taught by Professor Gilberto Farias.*
-
-This project offers a fully playable console-based Tic-Tac-Toe game in Python. You can play only:
-
-* **Human vs. Computer** (AI)
-
-The computer opponent uses a set of prioritized heuristic rules (an expert system) to determine its moves.
-
----
-
-## Features
-
-* Display of a 3×3 game board in the console
-* Game mode:
-
-  * Human vs. Computer (AI)
-* Move validation and win/draw detection
-* Expert system-based AI with prioritized rules with prioritized rules
-
----
-
-## Requirements
-
-* Python 3.7 or higher
-
----
-
-## Installation
-
-1. Clone this repository:
-
-   ```bash
-   git clone https://github.com/Vinicius-Mangueira/tic-tac-toe.git
-   ```
-2. Change into the project directory:
-
-   ```bash
-   cd tic-tac-toe
-   ```
-3. (Optional) Create and activate a virtual environment:
-
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate   # Linux/macOS
-   venv\\Scripts\\activate   # Windows
-   ```
-
----
-
-## How to Play
-
-1. Run the main script:
-
-   ```bash
-   python main.py
-   ```
-
-2. When you run the game, it starts directly in Human vs. Computer mode.
-
-3. Choose your symbol (X or O) and make moves by entering a position number (1–9) according to the layout:
-
-   ```plaintext
-    1 | 2 | 3
-   -----------
-    4 | 5 | 6
-   -----------
-    7 | 8 | 9
-   ```
-
-4. Players alternate turns until one aligns three symbols or the board is full (draw). until one aligns three symbols or the board is full (draw).
-
----
-
-## Game Rules
-
-* Two players take turns marking X or O on empty cells of a 3×3 grid.
-* The first player to align three of their symbols horizontally, vertically, or diagonally wins.
-* If all cells are filled without a winning alignment, the game ends in a draw.
-
----
-
-## Computer Strategy (Expert System)
-
-The AI uses the following prioritized heuristic rules. If a rule does not yield a valid move, the next rule is applied.
-
-1. **Win or Block**: If the AI or opponent has two in a row, play the winning move or block the opponent.
-2. **Create Fork**: Make a move that creates two simultaneous threats.
-3. **Take Center**: If the center cell is empty, take it.
-4. **Opposite Corner**: If the opponent is in a corner, play the opposite corner.
-5. **Empty Corner**: Play any available corner.
-6. **Empty Side**: Play any available side cell.
-
----
-
-## Project Structure
-
-```
-__pycache__/             # Python cache directory
-buttons.py               # Button management module for GUI inputs
-jogador.py               # Base player class
-jogador_humano.py        # Human player implementation
-jogador_ia.py            # AI (expert system) player implementation
-jogo_velha.py            # Core game logic and flow control
-main.py                  # Entry point and main game loop
-tabuleiro.py             # Board representation and logic
-tabuleiro_screen.py      # Board display (console or GUI rendering)
+```bash
+python -m pip install -r requirements.txt
+python main.py
 ```
 
----
+A graphical desktop is required. Click an empty square to play. The computer starts, and the window displays the winner or draw after the game.
 
-## Contributing
+## Code organization
 
-Contributions are welcome! To contribute:
+- `tabuleiro.py`: board state and winner detection.
+- `jogador_ia.py`: computer move rules.
+- `jogador_humano.py`: mouse input.
+- `tabuleiro_screen.py` and `buttons.py`: Pygame rendering and buttons.
+- `jogo_velha.py`: turn sequence; `main.py`: entry point.
 
-1. Fork this repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Commit your changes: \`git commit -m "Add feature"
-4. Push to your branch: `git push origin feature-name`
-5. Open a Pull Request
+## Status
 
----
+Historical course project. There is no automated gameplay suite or documented proof that the opponent is unbeatable. Desktop gameplay and window shutdown still require manual validation.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+[MIT](LICENSE).
