@@ -36,3 +36,7 @@ python -m unittest discover -s tests -v
 ```
 
 Tests use SDL dummy video/audio and do not replace full manual gameplay.
+
+## Full-game regression checks
+
+Four tests now cover both marks winning/blocking across lines, columns and diagonals, plus 24 complete SDL dummy games using the actual human click handler and post-game quit. Immediate AI wins now take precedence over blocks; opponent codes use the declared board constants. This verifies game completion under scripted legal clicks, not an unbeatable opponent or full manual desktop play. Run `python -m unittest discover -s tests -v`.
