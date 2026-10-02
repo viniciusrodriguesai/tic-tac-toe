@@ -6,6 +6,7 @@ class TabuleiroScreen:
     def __init__(self):
         self.resultado_txt = ""
         pygame.init()
+        bt.buttons_v.empty()
         screen = pygame.display.set_mode((700, 700))
         screen.fill((255, 255, 255))                
         self.screen = screen
@@ -24,6 +25,7 @@ class TabuleiroScreen:
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):
                     pygame.quit()
+                    return
          
     def desenha_tabuleiro(self):
         bt.buttons_v.update()
