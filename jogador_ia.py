@@ -20,44 +20,16 @@ class JogadorIA(Jogador):
                 if self.matriz[l][c] == Tabuleiro.DESCONHECIDO:
                     lista.append((l, c))
                 
-        # R1. Se você ou seu oponente tiver duas marcações em sequência, marque o quadrado restante.
-        for tipo in [self.tipo, 3 - self.tipo]:  # self.tipo = IA, 3-self.tipo = adversário
-            # Checa linhas
-            for l in range(3):
-                soma = 0
-                for c in range(3):        
-                    soma += self.matriz[l][c]
-                #Se soma der 8 marque o quadrado restante na linha
-                if soma == 8: 
-                    c = self.matriz[l].index(Tabuleiro.DESCONHECIDO)
-                    return (l, c)
-            # Checa colunas
-            for c in range(3):
-                soma = 0
-                for l in range(3):
-                    soma += self.matriz[l][c]
-                #Se soma der 8 marque o quadrado restante na coluna
-                if soma == 8:
-                    l = [self.matriz[i][c] for i in range(3)].index(Tabuleiro.DESCONHECIDO)
-                    return (l, c)
-            # Checa diagonal principal
-            for c in range(3):
-                soma = 0
-                for l in range(3):
-                    soma += self.matriz[l][l]
-                #Se soma der 8 marque o quadrado restante na diagonal principal
-                if soma == 8:
-                    i = [self.matriz[j][j] for j in range(3)].index(Tabuleiro.DESCONHECIDO)
-                    return (i, i)
-            # Checa diagonal secundária
-            for c in range(3):
-                soma = 0
-                for l in range(3):
-                    soma += self.matriz[l][2-l]
-                #Se soma der 8 marque o quadrado restante na diagonal secundária
-                if soma == 8:
-                    i = [self.matriz[j][2-j] for j in range(3)].index(Tabuleiro.DESCONHECIDO)
-                    return (i, 2-i)
+        # R1: finish our own line before blocking the opponent.
+        lines = [[(r, c) for c in range(3)] for r in range(3)]
+        lines += [[(r, c) for r in range(3)] for c in range(3)]
+        lines += [[(i, i) for i in range(3)], [(i, 2-i) for i in range(3)]]
+        opponent = Tabuleiro.JOGADOR_X if self.tipo == Tabuleiro.JOGADOR_0 else Tabuleiro.JOGADOR_0
+        for mark in (self.tipo, opponent):
+            for line in lines:
+                values = [self.matriz[r][c] for r, c in line]
+                if values.count(mark) == 2 and values.count(Tabuleiro.DESCONHECIDO) == 1:
+                    return line[values.index(Tabuleiro.DESCONHECIDO)]
         #R2. Se houver uma jogada que crie duas sequências de duas marcações,use-a.
         for l, c in lista:
             # Simula a jogada
@@ -91,7 +63,7 @@ class JogadorIA(Jogador):
         #R4. Se seu oponente tiver marcado um dos cantos, marque o canto oposto
         cantos = [(0,0), (0,2), (2,0), (2,2)]
         for (l, c) in cantos:
-            if self.matriz[l][c] == 3 - self.tipo:  # adversário
+            if self.matriz[l][c] == opponent:  # adversário
                 l_oposto, c_oposto = 2 - l, 2 - c
                 if self.matriz[l_oposto][c_oposto] == Tabuleiro.DESCONHECIDO:
                     return (l_oposto, c_oposto)
