@@ -23,8 +23,16 @@ A graphical desktop is required. Click an empty square to play. The computer sta
 
 ## Status
 
-Historical course project. There is no automated gameplay suite or documented proof that the opponent is unbeatable. Desktop gameplay and window shutdown still require manual validation.
+Historical course project. Two automated Pygame interaction tests cover occupied-square rejection, left-click selection and closing the window during a turn or after a game. No unbeatable-opponent claim is made. Board rendering and QUIT handling were verified with Pygame 2.6.1, Python 3.12.14 and SDL dummy drivers. Closing the window now terminates both the human-input loop and the end-of-game wait instead of continuing after pygame.quit(). Full manual gameplay and an unbeatable-opponent claim remain unverified.
 
 ## License
 
 [MIT](LICENSE).
+
+## Interaction checks
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Tests use SDL dummy video/audio and do not replace full manual gameplay.
